@@ -122,7 +122,6 @@ class _HomePageState extends State<HomePage> {
         }
 
         if (snapshot.hasError) {
-          print(snapshot.error);
           return const Center(
             child: Text(
               'Error al cargar los calculos',
