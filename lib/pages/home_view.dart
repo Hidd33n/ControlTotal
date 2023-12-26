@@ -34,7 +34,8 @@ class _HomePageState extends State<HomePage> {
       if (mounted) {
         // Verificar si el State está montado antes de llamar a setState()
         setState(() {
-          _username = userDoc.get('dasda'); // Actualizar el nombre de usuario
+          _username =
+              userDoc.get('username'); // Actualizar el nombre de usuario
         });
       }
     }
