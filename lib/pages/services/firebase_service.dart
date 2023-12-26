@@ -21,7 +21,11 @@ class FirebaseService {
                 .map((doc) => doc.data())
                 .whereType<Calculo>()
                 .toList(),
-          );
+          )
+          .handleError((err, stack) {
+        print(err);
+        print(stack);
+      });
 
   void borrarCalculo(String uid, String id) {
     FirebaseFirestore.instance

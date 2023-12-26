@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage> {
               child: ListTile(
                 title: Text('Monto: ${calculo.montoFinal}'),
                 subtitle: Text(
-                    'Impuesto: ${calculo.montoResta} - Fecha: $fechaFormateada'),
+                    'Impuesto: ${calculo.impuestoResta} - Fecha: $fechaFormateada'),
                 trailing: const Icon(Icons.delete),
               ),
             );
@@ -246,7 +246,7 @@ class _HomePageState extends State<HomePage> {
               child: ListTile(
                 title: Text('Monto: ${calculo.montoFinal}'),
                 subtitle:
-                    Text('Impuesto: ${calculo.montoResta} - Fecha: $fecha'),
+                    Text('Impuesto: ${calculo.impuestoResta} - Fecha: $fecha'),
                 trailing: const Icon(Icons.delete),
               ),
             );

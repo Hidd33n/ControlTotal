@@ -9,13 +9,13 @@ part of 'calculo.dart';
 Calculo _$CalculoFromJson(Map<String, dynamic> json) => Calculo(
       id: json['id'] as String,
       fecha: const TimestampSerializer().fromJson(json['fecha']),
-      montoFinal: json['montoFinal'] as String,
-      montoResta: json['montoResta'] as String,
+      montoFinal: (json['monto_final'] as num).toDouble(),
+      impuestoResta: (json['impuesto_resta'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$CalculoToJson(Calculo instance) => <String, dynamic>{
       'id': instance.id,
-      'montoFinal': instance.montoFinal,
-      'montoResta': instance.montoResta,
+      'monto_final': instance.montoFinal,
+      'impuesto_resta': instance.impuestoResta,
       'fecha': const TimestampSerializer().toJson(instance.fecha),
     };

@@ -5,8 +5,10 @@ part 'calculo.g.dart';
 @JsonSerializable()
 class Calculo {
   final String id;
-  final String montoFinal;
-  final String montoResta;
+  @JsonKey(name: 'monto_final')
+  final double montoFinal;
+  @JsonKey(name: 'impuesto_resta')
+  final double impuestoResta;
   @TimestampSerializer()
   final DateTime fecha;
 
@@ -14,7 +16,7 @@ class Calculo {
     required this.id,
     required this.fecha,
     required this.montoFinal,
-    required this.montoResta,
+    required this.impuestoResta,
   });
 
   factory Calculo.fromJson(Map<String, dynamic> json) =>
