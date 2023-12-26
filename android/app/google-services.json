@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "500077980521",
+    "firebase_url": "https://easycalcu-default-rtdb.firebaseio.com",
+    "project_id": "easycalcu",
+    "storage_bucket": "easycalcu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500077980521:android:1844dc2ff1ba45c2242bf8",
+        "android_client_info": {
+          "package_name": "com.argrealms.calcu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp4285igOOYHU1aAFd3unXtKZhvlHS5-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500077980521:android:4a74cb62c2f0c1c8242bf8",
+        "android_client_info": {
+          "package_name": "com.g4g"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp4285igOOYHU1aAFd3unXtKZhvlHS5-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
