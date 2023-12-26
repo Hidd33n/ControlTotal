@@ -1,3 +1,5 @@
+import 'package:calcu/pages/models/calculo.dart';
+import 'package:calcu/pages/services/firebase_service.dart';
 import 'package:calcu/pages/ui/calcu_view.dart';
 import 'package:calcu/services/calculations_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,10 +22,19 @@ class _HomePageState extends State<HomePage> {
       FirebaseFirestore.instance; // Instancia de FirebaseFirestore
   String _username = ''; // Variable para almacenar el nombre de usuario
   bool _showFriendsCalculations = false;
+
+  late final Stream<List<Calculo>> streamCalculos;
+  late final User? user;
+
   @override
   void initState() {
+    // Cargar el nombre de usuario cuando el estado se inicialice
+    _loadUsername();
+    user = _auth.currentUser;
+    if (user != null) {
+      streamCalculos = FirebaseService().obtenerCalculos(user!.uid);
+    }
     super.initState();
-    _loadUsername(); // Cargar el nombre de usuario cuando el estado se inicialice
   }
 
   Future<void> _loadUsername() async {
@@ -98,23 +109,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildAccountList() {
-    User? user = _auth.currentUser;
     if (user == null) {
       return const Center(child: Text('No hay usuario autenticado.'));
     }
 
     return StreamBuilder(
-      stream: _firestore
-          .collection('users')
-          .doc(user.uid)
-          .collection('calculos')
-          .snapshots(),
+      stream: streamCalculos,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
 
         if (snapshot.hasError) {
+          print(snapshot.error);
           return const Center(
             child: Text(
               'Error al cargar los calculos',
@@ -127,7 +134,7 @@ class _HomePageState extends State<HomePage> {
           );
         }
 
-        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(
             child: Text(
               'No hay cuentas que cargar :c',
@@ -140,34 +147,33 @@ class _HomePageState extends State<HomePage> {
           );
         }
 
-        List<DocumentSnapshot> docs = snapshot.data!.docs;
+        List<Calculo> calculosLista = snapshot.data!;
         return ListView.builder(
-          itemCount: docs.length,
+          itemCount: calculosLista.length,
           itemBuilder: (context, index) {
-            Map<String, dynamic> data =
-                docs[index].data() as Map<String, dynamic>;
+            final calculo = calculosLista[index];
 
             // Comprobar si el campo 'fecha' existe y no es null antes de convertirlo a DateTime
             // Formateo de la fecha sin segundos
             DateTime? fecha;
-            if (data['fecha'] != null) {
-              fecha = (data['fecha'] as Timestamp).toDate();
+            if (calculo.fecha != null) {
+              // fecha = (calculo.fecha as Timestamp).toDate();
             }
             String fechaFormateada = fecha != null
                 ? DateFormat('yyyy-MM-dd HH:mm').format(fecha)
                 : 'No disponible';
 
             return Dismissible(
-              key: Key(docs[index].id),
+              key: Key(calculo.id),
               onDismissed: (direction) {
                 // Eliminar el documento deslizado de Firestore
-                docs[index].reference.delete();
+                // calculos[index]..delete();
               },
               background: Container(color: Colors.red),
               child: ListTile(
-                title: Text('Monto: ${data['monto_final']}'),
+                title: Text('Monto: ${calculo.montoFinal}'),
                 subtitle: Text(
-                    'Impuesto: ${data['impuesto_resta']} - Fecha: $fechaFormateada'),
+                    'Impuesto: ${calculo.montoResta} - Fecha: $fechaFormateada'),
                 trailing: const Icon(Icons.delete),
               ),
             );
@@ -183,14 +189,8 @@ class _HomePageState extends State<HomePage> {
       return const Center(child: Text('No hay usuario autenticado.'));
     }
 
-    return StreamBuilder<QuerySnapshot>(
-      stream: _firestore
-          .collection('users')
-          .doc(user.uid)
-          .collection('friends')
-          .doc('team')
-          .collection('calculos')
-          .snapshots(),
+    return StreamBuilder<List<Calculo>>(
+      stream: streamCalculos,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
           ));
         }
 
-        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(
               child: Text(
             'No hay cálculos que cargar',
@@ -220,33 +220,33 @@ class _HomePageState extends State<HomePage> {
           ));
         }
 
-        List<DocumentSnapshot> docs = snapshot.data!.docs;
+        List<Calculo> calculosLista = snapshot.data!;
         return ListView.builder(
-          itemCount: docs.length,
+          itemCount: calculosLista.length,
           itemBuilder: (context, index) {
-            Map<String, dynamic> data =
-                docs[index].data() as Map<String, dynamic>;
+            final calculo = calculosLista[index];
 
+            // Comprobar si el campo 'fecha' existe y no es null antes de convertirlo a DateTime
             // Formateo de la fecha sin segundos
-            DateTime? fecha;
-            if (data['fecha'] != null) {
-              fecha = (data['fecha'] as Timestamp).toDate();
-            }
-            String fechaFormateada = fecha != null
-                ? DateFormat('yyyy-MM-dd HH:mm').format(fecha)
-                : 'No disponible';
+            final fecha = DateFormat('dd/MM/yyyy').format(calculo.fecha);
+            //  if (calculo.fecha != null) {
+            //  fecha = (calculo.fecha as Timestamp).toDate();
+            //    }
+            //  String fechaFormateada = fecha != null
+            //    ? DateFormat('yyyy-MM-dd HH:mm').format(fecha)
+            //  : 'No disponible';
 
             return Dismissible(
-              key: Key(docs[index].id),
+              key: Key(calculo.id),
               onDismissed: (direction) {
                 // Eliminar el documento deslizado de Firestore
-                docs[index].reference.delete();
+                // calculos[index]..delete();
               },
               background: Container(color: Colors.red),
               child: ListTile(
-                title: Text('Monto: ${data['monto_final']}'),
-                subtitle: Text(
-                    'Impuesto: ${data['impuesto_resta']} - Fecha: $fechaFormateada'),
+                title: Text('Monto: ${calculo.montoFinal}'),
+                subtitle:
+                    Text('Impuesto: ${calculo.montoResta} - Fecha: $fecha'),
                 trailing: const Icon(Icons.delete),
               ),
             );
