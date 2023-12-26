@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   String _username = ''; // Variable para almacenar el nombre de usuario
   bool _showFriendsCalculations = false;
 
+  final _fireBaseService = FirebaseService();
   late final Stream<List<Calculo>> streamCalculos;
   late final User? user;
 
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     _loadUsername();
     user = _auth.currentUser;
     if (user != null) {
-      streamCalculos = FirebaseService().obtenerCalculos(user!.uid);
+      streamCalculos = _fireBaseService.obtenerCalculos(user!.uid);
     }
     super.initState();
   }
@@ -240,7 +241,7 @@ class _HomePageState extends State<HomePage> {
               key: Key(calculo.id),
               onDismissed: (direction) {
                 // Eliminar el documento deslizado de Firestore
-                // calculos[index]..delete();
+                _fireBaseService.borrarCalculo(user.uid, calculo.id);
               },
               background: Container(color: Colors.red),
               child: ListTile(
