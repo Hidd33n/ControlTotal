@@ -19,7 +19,8 @@ class NavigationScreen extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
-  int _unReadNotificationsCount = 0; // Añadir variable para el recuento de notificaciones no leídas
+  int _unReadNotificationsCount =
+      0; // Añadir variable para el recuento de notificaciones no leídas
 
   @override
   void initState() {
@@ -35,13 +36,16 @@ class _NavigationScreenState extends State<NavigationScreen> {
           .collection('users')
           .doc(user.uid)
           .collection('notifications')
-          .where('read', isEqualTo: false) // Asegúrate de tener un campo 'read' en tus documentos de notificaciones
+          .where('read',
+              isEqualTo:
+                  false) // Asegúrate de tener un campo 'read' en tus documentos de notificaciones
           .snapshots()
           .listen((snapshot) {
-            setState(() {
-              _unReadNotificationsCount = snapshot.docs.length; // Actualizar con el número de documentos no leídos
-            });
-          });
+        setState(() {
+          _unReadNotificationsCount = snapshot
+              .docs.length; // Actualizar con el número de documentos no leídos
+        });
+      });
     }
   }
 
@@ -99,17 +103,18 @@ class _NavigationScreenState extends State<NavigationScreen> {
               ),
               GButton(
                 icon: LineIcons.heart,
-                text: 'Notificaciones',
+                text: 'Noti',
                 // Añadir el recuento de notificaciones no leídas como insignia
-                leading: _unReadNotificationsCount > 0 
-                         ? badges.Badge(
-                             badgeContent: Text(
-                               _unReadNotificationsCount > 99 ? '99+' : '$_unReadNotificationsCount', 
-                               style: TextStyle(color: Colors.white)
-                             ),
-                             child: Icon(LineIcons.heart),
-                           )
-                         : null,
+                leading: _unReadNotificationsCount > 0
+                    ? badges.Badge(
+                        badgeContent: Text(
+                            _unReadNotificationsCount > 99
+                                ? '99+'
+                                : '$_unReadNotificationsCount',
+                            style: TextStyle(color: Colors.white)),
+                        child: Icon(LineIcons.heart),
+                      )
+                    : null,
               ),
               GButton(
                 icon: LineIcons.search,
@@ -134,7 +139,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   // Definir las opciones de widget fuera del método build para evitar recrear el estado cada vez
   static final List<Widget> _widgetOptions = <Widget>[
-    const  HomePage(),
+    const HomePage(),
     NotifyView(),
     SearchView(),
     SettingsView()
