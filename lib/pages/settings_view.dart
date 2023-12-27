@@ -36,6 +36,16 @@ class SettingsView extends StatelessWidget {
               onTap: () => _taxessettings(context),
             ),
             ListTile(
+              leading: const Icon(Icons.dangerous),
+              title: const Text('*Proximamente..'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.dangerous),
+              title: const Text('*Proximamente..'),
+              onTap: () {},
+            ),
+            ListTile(
               leading: const Icon(Icons.exit_to_app),
               title: const Text('Cerrar sesión'),
               onTap: () => _confirmSignOut(context),
@@ -71,72 +81,76 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-void _taxessettings(BuildContext context) async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  void _taxessettings(BuildContext context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  // Convertir las tasas decimales a porcentajes enteros para la visualización
-  Map<String, double> fees = {
-    'Personalizado': (prefs.getDouble('one_payment_credit') ?? 0.078) * 100,
-    'Efectivo': (prefs.getDouble('cash') ?? 0.0) * 100,
-    '6 cuotas': (prefs.getDouble('six_payments') ?? 0.2285) * 100,
-    '3 cuotas': (prefs.getDouble('three_payments_credit') ?? 0.184) * 100,
-    'Transferencia': (prefs.getDouble('transfer') ?? 0.05) * 100,
-  };
+    // Convertir las tasas decimales a porcentajes enteros para la visualización
+    Map<String, double> fees = {
+      'Personalizado': (prefs.getDouble('one_payment_credit') ?? 0.078) * 100,
+      'Efectivo': (prefs.getDouble('cash') ?? 0.0) * 100,
+      '6 cuotas': (prefs.getDouble('six_payments') ?? 0.2285) * 100,
+      '3 cuotas': (prefs.getDouble('three_payments_credit') ?? 0.184) * 100,
+      'Transferencia': (prefs.getDouble('transfer') ?? 0.05) * 100,
+    };
 
-  // Crear controladores de texto para cada campo
-  Map<String, TextEditingController> controllers = {
-    for (var entry in fees.entries)
-      entry.key: TextEditingController(text: entry.value.toInt().toString()) // Muestra como entero
-  };
+    // Crear controladores de texto para cada campo
+    Map<String, TextEditingController> controllers = {
+      for (var entry in fees.entries)
+        entry.key: TextEditingController(
+            text: entry.value.toInt().toString()) // Muestra como entero
+    };
 
-  showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Ajustar Tasas'),
-        content: SingleChildScrollView(
-          child: Column(
-            children: [
-              for (var entry in controllers.entries)
-                TextField(
-                  controller: entry.value,
-                  decoration: InputDecoration(labelText: 'Tasa ${entry.key} (%)'),
-                  keyboardType: TextInputType.number, // Acepta sólo números enteros
-                ),
-            ],
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Ajustar Tasas'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                for (var entry in controllers.entries)
+                  TextField(
+                    controller: entry.value,
+                    decoration:
+                        InputDecoration(labelText: 'Tasa ${entry.key} (%)'),
+                    keyboardType:
+                        TextInputType.number, // Acepta sólo números enteros
+                  ),
+              ],
+            ),
           ),
-        ),
-        actions: [
-          TextButton(
-            child: const Text('Cancelar'),
-            onPressed: () => Navigator.pop(context),
-          ),
-          TextButton(
-            child: const Text('Guardar'),
-            onPressed: () async {
-              bool allValid = true;
-              for (var entry in controllers.entries) {
-                final newFee = int.tryParse(entry.value.text);
-                if (newFee != null) {
-                  // Guarda el valor como decimal después de convertirlo de porcentaje entero
-                  await prefs.setDouble(entry.key, newFee / 100);
-                } else {
-                  allValid = false;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Por favor ingrese un número válido para ${entry.key}')),
-                  );
-                  break;
+          actions: [
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: const Text('Guardar'),
+              onPressed: () async {
+                bool allValid = true;
+                for (var entry in controllers.entries) {
+                  final newFee = int.tryParse(entry.value.text);
+                  if (newFee != null) {
+                    // Guarda el valor como decimal después de convertirlo de porcentaje entero
+                    await prefs.setDouble(entry.key, newFee / 100);
+                  } else {
+                    allValid = false;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text(
+                              'Por favor ingrese un número válido para ${entry.key}')),
+                    );
+                    break;
+                  }
                 }
-              }
-              if (allValid) {
-                Navigator.pop(context);
-              }
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
+                if (allValid) {
+                  Navigator.pop(context);
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
