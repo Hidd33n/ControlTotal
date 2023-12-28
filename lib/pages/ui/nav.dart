@@ -4,6 +4,7 @@ import 'package:calcu/pages/noti_view.dart';
 import 'package:calcu/pages/search_view.dart';
 import 'package:calcu/pages/settings_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -99,7 +100,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             tabs: [
               GButton(
                 icon: LineIcons.home,
-                text: 'Inicio',
+                text: 'home'.tr(),
               ),
               GButton(
                 icon: LineIcons.heart,
@@ -118,11 +119,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
               ),
               GButton(
                 icon: LineIcons.search,
-                text: 'Buscar',
+                text: 'search'.tr(),
               ),
               GButton(
                 icon: LineIcons.user,
-                text: 'Ajustes',
+                text: 'settings'.tr(),
               ),
             ],
             selectedIndex: _selectedIndex,
