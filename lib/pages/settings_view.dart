@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsView extends StatelessWidget {
@@ -32,22 +34,30 @@ class SettingsView extends StatelessWidget {
           tiles: [
             ListTile(
               leading: const Icon(Icons.attach_money),
-              title: const Text('Ajustar Tasas'),
+              title: Text('fix taxs'.tr()),
               onTap: () => _taxessettings(context),
             ),
+            context.locale.languageCode == 'en'
+                ? ListTile(
+                    leading: const Icon(Icons.abc_sharp),
+                    title: Text('es'.tr()),
+                    onTap: () async =>
+                        await (context.setLocale(Locale('es', 'ES'))),
+                  )
+                : ListTile(
+                    leading: const Icon(Icons.abc_sharp),
+                    title: Text('en'.tr()),
+                    onTap: () async =>
+                        await (context.setLocale(Locale('en', 'US'))),
+                  ),
             ListTile(
               leading: const Icon(Icons.dangerous),
-              title: const Text('*Proximamente..'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.dangerous),
-              title: const Text('*Proximamente..'),
+              title: Text('cooming soon'.tr()),
               onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.exit_to_app),
-              title: const Text('Cerrar sesión'),
+              title: Text('logout'.tr()),
               onTap: () => _confirmSignOut(context),
             ),
             // Agrega más ListTiles aquí para otros ajustes si es necesario

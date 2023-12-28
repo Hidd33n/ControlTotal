@@ -1,6 +1,7 @@
 import 'package:calcu/pages/ui/calcu_view.dart';
 import 'package:calcu/services/calculations_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -115,10 +116,10 @@ class _HomePageState extends State<HomePage> {
         }
 
         if (snapshot.hasError) {
-          return const Center(
+          return Center(
             child: Text(
-              'Error al cargar los calculos',
-              style: TextStyle(
+              'error.t'.tr(),
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey,
@@ -128,10 +129,10 @@ class _HomePageState extends State<HomePage> {
         }
 
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(
+          return Center(
             child: Text(
-              'No hay cuentas que cargar :c',
-              style: TextStyle(
+              'empty.t'.tr(),
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey,
@@ -197,10 +198,10 @@ class _HomePageState extends State<HomePage> {
         }
 
         if (snapshot.hasError) {
-          return const Center(
+          return Center(
               child: Text(
-            'Error al cargar los cálculos',
-            style: TextStyle(
+            'error.t'.tr(),
+            style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
               color: Colors.grey,
@@ -209,10 +210,10 @@ class _HomePageState extends State<HomePage> {
         }
 
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(
+          return Center(
               child: Text(
-            'No hay cálculos que cargar',
-            style: TextStyle(
+            'empty.t'.tr(),
+            style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
               color: Colors.grey,
@@ -261,7 +262,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Bienvenido $_username',
+          "$_username",
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
               color: Colors.black,
@@ -300,7 +301,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: calculate,
         elevation: 0,
         backgroundColor: Colors.black87,
-        label: const Text('Calcular'),
+        label: Text('calculate'.tr()),
         icon: const Icon(Icons.calculate),
       ),
       body: _showFriendsCalculations

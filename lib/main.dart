@@ -5,6 +5,7 @@ import 'package:calcu/pages/noti_view.dart';
 import 'package:calcu/pages/search_view.dart';
 import 'package:calcu/pages/settings_view.dart';
 import 'package:calcu/pages/ui/nav.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -34,10 +35,20 @@ void main() async {
     provisional: false,
     sound: true,
   );
-  runApp(ChangeNotifierProvider(
-    create: (context) => CalculadoraProvider(),
-    child: MyApp(isAuthenticated: isAuthenticated),
-  ));
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+      supportedLocales: [Locale('en', 'US'), Locale('es', 'ES')],
+      path:
+          'assets/translations', // <-- change the path of the translation files
+      fallbackLocale: Locale('en', 'US'),
+      startLocale: Locale('en', 'US'),
+      child: ChangeNotifierProvider(
+        create: (context) => CalculadoraProvider(),
+        child: MyApp(isAuthenticated: isAuthenticated),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -48,6 +59,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) =>

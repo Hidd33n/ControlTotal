@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -91,8 +92,7 @@ class _SearchViewState extends State<SearchView> {
           });
         } else {
           Fluttertoast.showToast(
-            msg:
-                'Error al enviar la invitación. Por favor, inténtalo nuevamente.',
+            msg: 'error.v'.tr(),
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             backgroundColor: Colors.red,
@@ -101,7 +101,7 @@ class _SearchViewState extends State<SearchView> {
         }
       } else {
         Fluttertoast.showToast(
-          msg: 'Usuario no encontrado',
+          msg: 'error.u'.tr(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Colors.red,
@@ -140,19 +140,10 @@ class _SearchViewState extends State<SearchView> {
           client.close(); // Cierra la conexión después de usarla
 
           if (response.statusCode == 200) {
-            print('Notificación enviada exitosamente');
-          } else {
-            print('Error al enviar la notificación');
-          }
-        } else {
-          print('Error: No se encontró el deviceToken');
-        }
-      } else {
-        print('Error: Usuario no encontrado');
-      }
-    } catch (error) {
-      print('Error al enviar la notificación: $error');
-    }
+          } else {}
+        } else {}
+      } else {}
+    } catch (error) {}
   }
 
   Future<List<String>> fetchUserSuggestions(String pattern) async {
@@ -222,7 +213,7 @@ class _SearchViewState extends State<SearchView> {
 
         // Mostrar un mensaje emergente (toast) indicando que el amigo ha sido eliminado
         Fluttertoast.showToast(
-          msg: 'Amigo eliminado',
+          msg: 'send.i'.tr(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Colors.grey,
@@ -231,7 +222,7 @@ class _SearchViewState extends State<SearchView> {
       } else {
         // Manejar el caso en que no se encuentre el UID del amigo
         Fluttertoast.showToast(
-          msg: 'Usuario no encontrado',
+          msg: 'send.ei'.tr(),
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Colors.grey,
@@ -260,7 +251,7 @@ class _SearchViewState extends State<SearchView> {
                       controller: _searchController,
                       style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
-                        hintText: 'Buscar usuarios...',
+                        hintText: 'search user'.tr(),
                         hintStyle: TextStyle(color: Colors.black, fontSize: 14),
                         filled: true,
                         fillColor: Colors.grey[200],
@@ -275,26 +266,25 @@ class _SearchViewState extends State<SearchView> {
                       return ListTile(title: Text(suggestion));
                     },
                     noItemsFoundBuilder: (context) {
-                      return ListTile(
-                          title: Text('No se han encontrado usuarios'));
+                      return ListTile(title: Text('search.em'.tr()));
                     },
                     onSuggestionSelected: (suggestion) {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text('Enviar Invitación'),
+                            title: Text('send.bu'.tr()),
                             content: Text(
                                 '¿Quieres enviar una invitación a $suggestion?'),
                             actions: <Widget>[
                               TextButton(
-                                child: Text('Cancelar'),
+                                child: Text('cancel.bu'.tr()),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
                               ),
                               TextButton(
-                                child: Text('Enviar'),
+                                child: Text('accept.bu'.tr()),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                   sendInvitation(suggestion);
@@ -313,7 +303,7 @@ class _SearchViewState extends State<SearchView> {
           SizedBox(height: 100),
           Center(
               child: Text(
-            'Miembros del equipo',
+            'team member'.tr(),
             style: TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
@@ -333,8 +323,8 @@ class _SearchViewState extends State<SearchView> {
 
               if (snapshot.hasError) {
                 return Text(
-                  'Error al cargar los miembros del equipo',
-                  style: TextStyle(
+                  'error.team'.tr(),
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.red,
@@ -344,8 +334,8 @@ class _SearchViewState extends State<SearchView> {
 
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                 return Text(
-                  'No has invitado a nadie a tu equipo',
-                  style: TextStyle(
+                  'empty.team'.tr(),
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey,
@@ -381,7 +371,7 @@ class _SearchViewState extends State<SearchView> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Eliminar amigo'),
+                                title: Text('delete.t'.tr()),
                                 content: Text(
                                     '¿Estás seguro de que deseas eliminar a $username de tus amigos?'),
                                 actions: [
@@ -390,7 +380,7 @@ class _SearchViewState extends State<SearchView> {
                                       Navigator.pop(
                                           context); // Close the dialog
                                     },
-                                    child: Text('Cancelar'),
+                                    child: Text('cancel.bu'.tr()),
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -399,7 +389,7 @@ class _SearchViewState extends State<SearchView> {
                                       removeFriend(
                                           username); // Call the function to remove the friend
                                     },
-                                    child: Text('Eliminar',
+                                    child: Text('accept.bu'.tr(),
                                         style: TextStyle(
                                             color:
                                                 Colors.blue)), // Set text color
@@ -409,7 +399,7 @@ class _SearchViewState extends State<SearchView> {
                             },
                           );
                         },
-                        child: Text('Eliminar',
+                        child: Text('delete'.tr(),
                             style: TextStyle(color: Colors.blue)),
                       ),
                     ],
