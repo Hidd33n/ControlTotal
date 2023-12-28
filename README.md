@@ -1,16 +1,16 @@
-# calcu
+# Control Total app
 
-A new Flutter project.
+Este proyecto Flutter proporciona una aplicación móvil intuitiva y fácil de usar para que las personas calculen los impuestos que se les retienen y comprendan cuánto dinero se deduce de sus ingresos.
 
-## Getting Started
+Funcionalidades Destacadas:
+Calculadora de Impuestos Personalizada: Permite a los usuarios ingresar sus ingresos y otros detalles relevantes para calcular con precisión los impuestos retenidos.
 
-This project is a starting point for a Flutter application.
+Estilo Visual Atractivo: La interfaz de usuario está diseñada de manera intuitiva y atractiva, facilitando la navegación y la comprensión de los resultados.
 
-A few resources to get you started if this is your first Flutter project:
+![1](https://github.com/Hidd33n/ControlTotal/assets/53452725/bac1642b-e8cc-420a-af7d-b4f6e4a767d4)
+![2](https://github.com/Hidd33n/ControlTotal/assets/53452725/75c427c7-fcec-476d-9908-138cf39d251f)
+![3](https://github.com/Hidd33n/ControlTotal/assets/53452725/d21a919e-64cd-418a-9a8f-cd54e63110c7)
+![4](https://github.com/Hidd33n/ControlTotal/assets/53452725/a0337248-59bf-4f7e-a003-bba0117251e8)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
