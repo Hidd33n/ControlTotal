@@ -1,5 +1,6 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:calcu/authsystem/auth.dart';
-import 'package:calcu/functions/taxes_f.dart';
 import 'package:calcu/pages/home_view.dart';
 import 'package:calcu/pages/noti_view.dart';
 import 'package:calcu/pages/search_view.dart';
@@ -10,8 +11,6 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:provider/provider.dart';
-
 import 'firebase_options.dart';
 
 void main() async {
@@ -38,15 +37,12 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en', 'US'), Locale('es', 'ES')],
+      supportedLocales: const [Locale('en', 'US'), Locale('es', 'ES')],
       path:
           'assets/translations', // <-- change the path of the translation files
-      fallbackLocale: Locale('en', 'US'),
-      startLocale: Locale('en', 'US'),
-      child: ChangeNotifierProvider(
-        create: (context) => CalculadoraProvider(),
-        child: MyApp(isAuthenticated: isAuthenticated),
-      ),
+      fallbackLocale: const Locale('en', 'US'),
+      startLocale: const Locale('en', 'US'),
+      child: MyApp(isAuthenticated: isAuthenticated),
     ),
   );
 }

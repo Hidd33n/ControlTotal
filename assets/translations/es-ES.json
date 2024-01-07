@@ -1,4 +1,10 @@
 {
+    "apptitle": "Control Total",
+    "appsubtitle": "Administrar tu negocio nunca fue tan fácil.",
+    "signin": "Iniciar Sesion",
+    "register?": "No estás registrado?",
+    "a.register?": "Ya estas registrado?",
+    "register": "   Registrar",
     "welcome": "Bienvenido",
     "calculate": "Calcular",
     "home": "Inicio",
@@ -24,5 +30,17 @@
     "search user": "Buscar usuario",
     "es": "Español",
     "en": "Ingles",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "r.error1": "Las contraseñas no coinciden",
+    "r.error2": "Todos los campos son obligatorios",
+    "r.error3": "El nombre de usuario ya está en uso",
+    "r.error": "Error durante el registro",
+    "cash": "Efectivo",
+    "transfer": "Transferencia",
+    "3pay": "3 Cuotas",
+    "6pay": "6 Cuotas",
+    "custom": "Personalizado",
+    "m.team": "Modo Equipo:",
+    "cv": "Ingresa monto",
+    "pm": "Tipo de pago"
 }
