@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -145,7 +146,7 @@ class _CalculateDialogState extends State<CalculateDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Modo Equipo:"),
+                Text("m.team".tr()),
                 Switch(
                   value: _saveToDifferentLocation,
                   onChanged: (bool value) {
@@ -160,7 +161,7 @@ class _CalculateDialogState extends State<CalculateDialog> {
               controller: widget.controller,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Ingresa tu monto',
+                hintText: 'cv'.tr(),
               ),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
             ),
@@ -180,7 +181,7 @@ class _CalculateDialogState extends State<CalculateDialog> {
               }).toList(),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Tipo de Pago',
+                labelText: 'pm'.tr(),
               ),
             ),
             SizedBox(height: 20),
@@ -193,7 +194,7 @@ class _CalculateDialogState extends State<CalculateDialog> {
                       primary: Colors.black,
                       onPrimary: Colors.white,
                     ),
-                    child: Text("Calcular"),
+                    child: Text("calculate".tr()),
                     onPressed: calculateAndSave,
                   ),
                 ),
@@ -204,7 +205,7 @@ class _CalculateDialogState extends State<CalculateDialog> {
                       primary: Colors.black,
                       onPrimary: Colors.white,
                     ),
-                    child: Text("Cancelar"),
+                    child: Text("cancel.bu".tr()),
                     onPressed: widget.onCancel,
                   ),
                 ),

@@ -1,4 +1,10 @@
 {
+    "apptitle": "Full Control",
+    "appsubtitle": "Managing your business has never been so easy.",
+    "signin": "  Sign In",
+    "register?": "Are you not registered?",
+    "a.register?": "Are your registered?",
+    "register": "   Sign Up",
     "welcome": "Welcome",
     "calculate": "Calculate",
     "home": "Home",
@@ -24,5 +30,17 @@
     "search user": "Search user..",
     "es": "Spanish",
     "en": "English",
-    "delete": "Delete"
+    "delete": "Delete",
+    "r.error1": "Passwords do not match",
+    "r.error2": "All fields are mandatory",
+    "r.error3": "The username is already in use",
+    "r.error": "Error during registration",
+    "cash": "Cash",
+    "transfer": "Transfer",
+    "3pay": "3 Payments",
+    "6pay": "6 Payments",
+    "custom": "Custom",
+    "m.team": "Team Mode:",
+    "cv": "Enter amount",
+    "pm": "Payments Methods"
 }

@@ -1,24 +1,27 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsView extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  SettingsView({super.key});
 
   // Esta función maneja el cierre de sesión
   Future<void> _signOut(BuildContext context) async {
     try {
       await _auth.signOut();
       // Muestra el SnackBar después de un cierre de sesión exitoso.
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Sesión cerrada con éxito')),
+        const SnackBar(content: Text('Sesión cerrada con éxito')),
       );
       // No es necesario redirigir al usuario a la página de autenticación aquí
       // El StreamBuilder en NavigationScreen se encargará de esto
     } catch (e) {
       // Si ocurre un error, muestra un SnackBar.
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al cerrar sesión: $e')),
       );
@@ -42,13 +45,13 @@ class SettingsView extends StatelessWidget {
                     leading: const Icon(Icons.abc_sharp),
                     title: Text('es'.tr()),
                     onTap: () async =>
-                        await (context.setLocale(Locale('es', 'ES'))),
+                        await (context.setLocale(const Locale('es', 'ES'))),
                   )
                 : ListTile(
                     leading: const Icon(Icons.abc_sharp),
                     title: Text('en'.tr()),
                     onTap: () async =>
-                        await (context.setLocale(Locale('en', 'US'))),
+                        await (context.setLocale(const Locale('en', 'US'))),
                   ),
             ListTile(
               leading: const Icon(Icons.dangerous),
@@ -110,6 +113,7 @@ class SettingsView extends StatelessWidget {
             text: entry.value.toInt().toString()) // Muestra como entero
     };
 
+    // ignore: use_build_context_synchronously
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -154,6 +158,7 @@ class SettingsView extends StatelessWidget {
                   }
                 }
                 if (allValid) {
+                  // ignore: use_build_context_synchronously
                   Navigator.pop(context);
                 }
               },
