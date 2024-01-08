@@ -8,6 +8,8 @@ class SwitchList extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance; // Instancia de FirebaseAuth
   final FirebaseFirestore _firestore =
       FirebaseFirestore.instance; // Instancia de FirebaseFirestore
+  int totalAmount = 0; // Nueva propiedad para almacenar el total de montos
+  final TextEditingController counterController = TextEditingController();
 
   Widget buildAccountList() {
     User? user = _auth.currentUser;
