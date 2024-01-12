@@ -1,4 +1,4 @@
-import 'package:calcu/pages/ui/calcu_view.dart';
+import 'package:calcu/assets/ui/calcu_view.dart';
 import 'package:flutter/material.dart';
 
 class DialogUtils {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CountServices extends StatefulWidget {
   final String userId;
@@ -74,11 +75,10 @@ class _CountServicesState extends State<CountServices> {
             builder: (context, totalAmount, _) {
               return Text(
                 'Total: $totalAmount',
-                style: const TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                        fontFamily: 'poppins', fontWeight: FontWeight.w400),
+                    color: Colors.white),
               );
             },
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import '../functions/notify_service.dart';
+import '../assets/functions/notify_service.dart';
 
 class NotifyView extends StatefulWidget {
   const NotifyView({Key? key}) : super(key: key);
@@ -31,68 +32,18 @@ class _NotifyViewState extends State<NotifyView> {
     } catch (error) {}
   }
 
-  void mostrarMenuNotificaciones(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: notificaciones.isEmpty
-              ? const Text('No hay notificaciones disponibles.')
-              : SingleChildScrollView(
-                  child: Column(
-                    children: notificaciones
-                        .map((notificacion) => LayoutBuilder(
-                              builder: (context, constraints) {
-                                return SizedBox(
-                                  width: constraints
-                                      .maxWidth, // Asegura que no desborde horizontalmente
-                                  child: ListTile(
-                                    title: Text(notificacion.titulo),
-                                    subtitle: Text(notificacion.descripcion),
-                                    trailing: Row(
-                                      children: [
-                                        TextButton(
-                                          onPressed: () {
-                                            _notificacionesService
-                                                .aceptarInvitacion(
-                                                    notificacion);
-                                          },
-                                          child: const Text('Aceptar'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            _notificacionesService
-                                                .rechazarInvitacion(
-                                                    notificacion);
-                                          },
-                                          child: const Text('Rechazar'),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ))
-                        .toList(),
-                  ),
-                ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: notificaciones.isEmpty
-          ? const Center(
+    return Container(
+      color: Colors.black,
+      child: notificaciones.isEmpty
+          ? Center(
               child: Text(
                 'No tienes notificaciones',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
-                ),
+                style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                        fontFamily: 'poppins', fontWeight: FontWeight.w400),
+                    color: Colors.white),
               ),
             )
           : ListView.builder(
@@ -119,10 +70,11 @@ class _NotifyViewState extends State<NotifyView> {
                           const SizedBox(height: 8),
                           Text(
                             "${notificacion.descripcion}\n${DateFormat('dd-MM-yyyy HH:mm').format(notificacion.fecha)}",
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey,
-                            ),
+                            style: GoogleFonts.poppins(
+                                textStyle: const TextStyle(
+                                    fontFamily: 'poppins',
+                                    fontWeight: FontWeight.w400),
+                                color: Colors.white),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 16),
@@ -134,7 +86,14 @@ class _NotifyViewState extends State<NotifyView> {
                                   _notificacionesService
                                       .aceptarInvitacion(notificacion);
                                 },
-                                child: const Text('Aceptar'),
+                                child: Text(
+                                  'Aceptar',
+                                  style: GoogleFonts.poppins(
+                                      textStyle: const TextStyle(
+                                          fontFamily: 'poppins',
+                                          fontWeight: FontWeight.w400),
+                                      color: Colors.white),
+                                ),
                               ),
                               const SizedBox(width: 16),
                               TextButton(
@@ -142,7 +101,14 @@ class _NotifyViewState extends State<NotifyView> {
                                   _notificacionesService
                                       .rechazarInvitacion(notificacion);
                                 },
-                                child: const Text('Rechazar'),
+                                child: Text(
+                                  'Rechazar',
+                                  style: GoogleFonts.poppins(
+                                      textStyle: const TextStyle(
+                                          fontFamily: 'poppins',
+                                          fontWeight: FontWeight.w400),
+                                      color: Colors.white),
+                                ),
                               ),
                             ],
                           ),

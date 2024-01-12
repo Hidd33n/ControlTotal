@@ -156,4 +156,51 @@ class NotificacionesService {
       );
     }
   }
+
+  void mostrarMenuNotificaciones(
+      BuildContext context, List<Notificacion> notificaciones) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: notificaciones.isEmpty
+              ? const Text('No hay notificaciones disponibles.')
+              : SingleChildScrollView(
+                  child: Column(
+                    children: notificaciones
+                        .map((notificacion) => LayoutBuilder(
+                              builder: (context, constraints) {
+                                return SizedBox(
+                                  width: constraints
+                                      .maxWidth, // Asegura que no desborde horizontalmente
+                                  child: ListTile(
+                                    title: Text(notificacion.titulo),
+                                    subtitle: Text(notificacion.descripcion),
+                                    trailing: Row(
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            aceptarInvitacion(notificacion);
+                                          },
+                                          child: const Text('Aceptar'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            rechazarInvitacion(notificacion);
+                                          },
+                                          child: const Text('Rechazar'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ))
+                        .toList(),
+                  ),
+                ),
+        );
+      },
+    );
+  }
 }
