@@ -1,11 +1,11 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:calcu/authsystem/auth.dart';
+import 'package:calcu/pages/authsystem/auth.dart';
 import 'package:calcu/pages/home_view.dart';
 import 'package:calcu/pages/noti_view.dart';
 import 'package:calcu/pages/search_view.dart';
 import 'package:calcu/pages/settings_view.dart';
-import 'package:calcu/pages/ui/nav.dart';
+import 'package:calcu/assets/ui/nav.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';

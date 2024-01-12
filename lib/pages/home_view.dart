@@ -1,8 +1,7 @@
-import 'package:calcu/functions/count_services.dart';
-import 'package:calcu/functions/home_services.dart';
-import 'package:calcu/functions/switch_list.dart';
+import 'package:calcu/assets/functions/count_services.dart';
+import 'package:calcu/assets/functions/home_services.dart';
+import 'package:calcu/assets/functions/switch_list.dart';
 import 'package:calcu/utils/dialog_utils.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,32 +52,29 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           _username,
-          style: GoogleFonts.nunito(
-            textStyle: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-            ),
-          ),
+          style: GoogleFonts.poppins(
+              textStyle: const TextStyle(
+                  fontFamily: 'poppins', fontWeight: FontWeight.w600),
+              color: Colors.white),
         ),
         titleSpacing: 0.0,
         centerTitle: true,
         toolbarHeight: 60.2,
         toolbarOpacity: 0.8,
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.teal,
         automaticallyImplyLeading: false,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Container(
-            color: Colors.grey[300],
+            color: Colors.tealAccent[300],
             height: 1.0,
           ),
         ),
         actions: [
           IconButton(
             icon: Icon(_showFriendsCalculations ? Icons.group : Icons.person,
-                color: Colors.black),
+                color: Colors.white),
             onPressed: () {
               setState(() {
                 _showFriendsCalculations = !_showFriendsCalculations;
@@ -87,32 +83,36 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: calculate,
-        elevation: 0,
-        backgroundColor: Colors.black87,
-        label: Text(
-          'calculate'.tr(),
-          style: const TextStyle(color: Colors.white),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(
+            bottom: 42), // Ajusta el margen inferior según sea necesario
+        child: FloatingActionButton(
+          onPressed: calculate,
+          elevation: 8, // Ajusta el valor de la elevación según sea necesario
+          backgroundColor: Colors.teal,
+          child: const Icon(Icons.add, color: Colors.white),
         ),
-        icon: const Icon(Icons.calculate, color: Colors.white),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: _showFriendsCalculations
-                ? _switchList.buildTeamAccountList()
-                : _switchList.buildAccountList(),
-          ),
-          Column(
-            children: [
-              if (_showFriendsCalculations && user != null)
-                CountServices(userId: user.uid, isTeamCount: true),
-              if (!_showFriendsCalculations && user != null)
-                CountServices(userId: user.uid, isTeamCount: false),
-            ],
-          )
-        ],
+      body: Container(
+        color: Colors.black,
+        child: Column(
+          children: [
+            Expanded(
+              child: _showFriendsCalculations
+                  ? _switchList.buildTeamAccountList()
+                  : _switchList.buildAccountList(),
+            ),
+            Column(
+              children: [
+                if (_showFriendsCalculations && user != null)
+                  CountServices(userId: user.uid, isTeamCount: true),
+                if (!_showFriendsCalculations && user != null)
+                  CountServices(userId: user.uid, isTeamCount: false),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
