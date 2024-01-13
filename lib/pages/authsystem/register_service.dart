@@ -1,10 +1,13 @@
 import 'package:calcu/assets/ui/nav.dart';
+import 'package:calcu/pages/authsystem/error_cases.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class RegisterService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,7 +29,12 @@ class RegisterService {
         emailController.text.trim().isEmpty ||
         passwordController.text.trim().isEmpty ||
         cmpasswordController.text.trim().isEmpty) {
-      Fluttertoast.showToast(msg: 'r.error2'.tr());
+      showTopSnackBar(
+        Overlay.of(context),
+        const CustomSnackBar.error(
+          message: "Los campos tienen que estar llenos",
+        ),
+      );
       return;
     }
 
@@ -60,8 +68,7 @@ class RegisterService {
       );
     } catch (e) {
       // Handle registration error
-      print('Error during registration: $e');
-      Fluttertoast.showToast(msg: 'r.error'.tr());
+      ErrorCases.handleRegisterError(context, e);
     }
   }
 

@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class SettingsServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -10,16 +12,23 @@ class SettingsServices {
       await _auth.signOut();
       // Muestra el SnackBar después de un cierre de sesión exitoso.
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Sesión cerrada con éxito')),
+      showTopSnackBar(
+        // ignore: use_build_context_synchronously
+        Overlay.of(context),
+        const CustomSnackBar.success(
+          message: 'Sesion Cerrada con exito',
+        ),
       );
       // No es necesario redirigir al usuario a la página de autenticación aquí
       // El StreamBuilder en NavigationScreen se encargará de esto
     } catch (e) {
       // Si ocurre un error, muestra un SnackBar.
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al cerrar sesión: $e')),
+      showTopSnackBar(
+        Overlay.of(context),
+        const CustomSnackBar.error(
+          message: 'Error al cerrar sesion',
+        ),
       );
     }
   }
@@ -178,16 +187,12 @@ class SettingsServices {
                     await prefs.setDouble(entry.key, newFee / 100);
                   } else {
                     allValid = false;
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text(
-                        'Por favor ingrese un número válido para ${entry.key}',
-                        style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                                fontFamily: 'poppins',
-                                fontWeight: FontWeight.w400),
-                            color: Colors.white),
-                      )),
+                    showTopSnackBar(
+                      Overlay.of(context),
+                      CustomSnackBar.error(
+                        message:
+                            'Porfavor ingrese un numero valido ${entry.key}',
+                      ),
                     );
                     break;
                   }

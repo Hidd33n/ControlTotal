@@ -1,13 +1,10 @@
 import 'package:calcu/assets/widgets/custombuttons.dart';
 import 'package:calcu/assets/widgets/customtextinput.dart';
+import 'package:calcu/assets/widgets/slogananimation.dart';
 import 'package:calcu/pages/authsystem/login_service.dart';
-
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -75,18 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 10,
                 ),
                 // ignore: deprecated_member_use
-                TyperAnimatedTextKit(
-                  isRepeatingAnimation: false,
-                  speed: const Duration(milliseconds: 60),
-                  text: ['appsubtitle'.tr().toUpperCase()],
-                  textStyle: const TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 10,
-                      color: Colors.white
-                      // color: Color.fromARGB(255, 91, 91, 91)),
-                      ),
-                ),
+                SloganAnim(),
                 const SizedBox(height: 50),
 
                 //email textfield
@@ -101,8 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                 //pw textfield
                 CustomTextField(
                   controller: _passwordController,
-                  hintText: 'Email',
-                  icon: Icons.mail_lock,
+                  hintText: 'Password',
+                  icon: Icons.password,
                   obscureText: true,
                 ),
 

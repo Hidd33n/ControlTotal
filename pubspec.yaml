@@ -53,6 +53,8 @@ dependencies:
   flutter_launcher_icons:
   http: ^1.1.2
   animated_text_kit: ^4.2.2
+  audioplayers:
+  top_snackbar_flutter: ^3.1.0
 flutter_launcher_icons:
   android: "ic_launcher"
   ios: true
@@ -83,3 +85,4 @@ flutter:
      - assets/translations/en-US.json
      - assets/translations/es-ES.json
      - assets/fonts/
+     - assets/sounds/loginsound.mp3

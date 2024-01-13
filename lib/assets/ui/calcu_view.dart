@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class CalculateDialog extends StatefulWidget {
   final TextEditingController controller;
@@ -26,7 +29,6 @@ class _CalculateDialogState extends State<CalculateDialog> {
   double calculatedAmount = 0.0;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  late TextEditingController _controller;
   bool _saveToDifferentLocation = false;
   final List<String> paymentTypes = [
     'Efectivo',
@@ -37,7 +39,6 @@ class _CalculateDialogState extends State<CalculateDialog> {
   ];
   void dispose() {
     super.dispose();
-    _controller;
   }
 
   void calculateAndSave() async {
@@ -129,15 +130,14 @@ class _CalculateDialogState extends State<CalculateDialog> {
             _firestore.collection('users').doc(user.uid).collection('calculos');
 
         await individualCalculationsRef.add(calculationData);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Monto y tasa guardados con éxito')),
+        showTopSnackBar(
+          Overlay.of(context),
+          const CustomSnackBar.success(
+            message: "Guardado con exito",
+          ),
         );
       }
       widget.onSave();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Usuario no autenticado.')),
-      );
     }
   }
 
@@ -191,6 +191,9 @@ class _CalculateDialogState extends State<CalculateDialog> {
                         color: Colors.white)),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
               ),
               const SizedBox(height: 20),
               DropdownButtonFormField(
