@@ -236,7 +236,8 @@ class _SearchViewState extends State<SearchView> {
                               padding: const EdgeInsets.only(left: 20.0),
                               child: Text(
                                 username,
-                                style: GoogleFonts.oswald(fontSize: 18.0),
+                                style: GoogleFonts.poppins(
+                                    fontSize: 18.0, color: Colors.white),
                               ),
                             ),
                           ),
