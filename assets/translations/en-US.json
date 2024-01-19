@@ -42,5 +42,7 @@
     "custom": "Custom",
     "m.team": "Team Mode:",
     "cv": "Enter amount",
-    "pm": "Payments Methods"
+    "pm": "Payments Methods",
+    "lighttheme": "Light Theme",
+    "darktheme": "Dark Theme"
 }

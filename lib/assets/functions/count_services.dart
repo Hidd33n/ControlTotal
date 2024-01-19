@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CountServices extends StatefulWidget {
   final String userId;
@@ -61,8 +60,6 @@ class _CountServicesState extends State<CountServices> {
             totalAmount += montoFinal;
           } else if (montoFinal is num) {
             totalAmount += montoFinal.toInt();
-          } else {
-            print('Warning: data[\'monto_final\'] no es de tipo int o num.');
           }
         }
 
@@ -75,10 +72,7 @@ class _CountServicesState extends State<CountServices> {
             builder: (context, totalAmount, _) {
               return Text(
                 'Total: $totalAmount',
-                style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                    color: Colors.white),
+                style: Theme.of(context).textTheme.bodyLarge,
               );
             },
           ),

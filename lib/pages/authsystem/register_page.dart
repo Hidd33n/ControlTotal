@@ -1,13 +1,9 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:calcu/assets/widgets/custombuttons.dart';
 import 'package:calcu/assets/widgets/customtextinput.dart';
+import 'package:calcu/assets/widgets/slogananimation.dart';
 import 'package:calcu/pages/authsystem/register_service.dart';
-
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/material.dart';
-
-import 'package:google_fonts/google_fonts.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -46,7 +42,6 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.only(top: 40),
@@ -56,34 +51,21 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //logo
-                const Icon(
+                Icon(
                   Icons.library_books_rounded,
                   size: 100,
-                  color: Colors.teal,
+                  color: Theme.of(context).iconTheme.color,
                 ),
                 const SizedBox(height: 20),
 
                 //Primera frase
                 Text('apptitle'.tr(),
-                    style: GoogleFonts.poppins(
-                        fontSize: 30,
-                        textStyle: const TextStyle(color: Colors.white))),
+                    style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(
                   height: 10,
                 ),
-                TyperAnimatedTextKit(
-                  isRepeatingAnimation: false,
-                  speed: const Duration(milliseconds: 60),
-                  text: ['appsubtitle'.tr().toUpperCase()],
-                  textStyle: const TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 10,
-                      color: Colors.white
-                      // color: Color.fromARGB(255, 91, 91, 91)),
-                      ),
-                ),
-                const SizedBox(height: 50),
+                SloganAnim(),
+                const SizedBox(height: 15),
                 //username textfield
                 SingleChildScrollView(
                   child: Padding(
@@ -153,11 +135,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         onTap: widget.showLoginPage,
                         child: Text(
                           'signin'.tr(),
-                          style: GoogleFonts.poppins(
-                              textStyle: const TextStyle(
-                                  fontFamily: 'poppins',
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white)),
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                     ],

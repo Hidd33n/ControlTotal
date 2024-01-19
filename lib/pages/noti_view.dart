@@ -29,21 +29,19 @@ class _NotifyViewState extends State<NotifyView> {
       setState(() {
         notificaciones = loadedNotificaciones;
       });
+      // ignore: empty_catches
     } catch (error) {}
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      color: Theme.of(context).colorScheme.primary,
       child: notificaciones.isEmpty
           ? Center(
               child: Text(
                 'No tienes notificaciones',
-                style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                    color: Colors.white),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             )
           : ListView.builder(
@@ -61,20 +59,16 @@ class _NotifyViewState extends State<NotifyView> {
                         children: [
                           Text(
                             notificacion.titulo,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 8),
                           Text(
                             "${notificacion.descripcion}\n${DateFormat('dd-MM-yyyy HH:mm').format(notificacion.fecha)}",
                             style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                    fontFamily: 'poppins',
-                                    fontWeight: FontWeight.w400),
-                                color: Colors.white),
+                                textStyle:
+                                    Theme.of(context).textTheme.bodyLarge,
+                                color: Theme.of(context).colorScheme.primary),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 16),
@@ -88,11 +82,7 @@ class _NotifyViewState extends State<NotifyView> {
                                 },
                                 child: Text(
                                   'Aceptar',
-                                  style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(
-                                          fontFamily: 'poppins',
-                                          fontWeight: FontWeight.w400),
-                                      color: Colors.white),
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
                               const SizedBox(width: 16),
@@ -103,11 +93,7 @@ class _NotifyViewState extends State<NotifyView> {
                                 },
                                 child: Text(
                                   'Rechazar',
-                                  style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(
-                                          fontFamily: 'poppins',
-                                          fontWeight: FontWeight.w400),
-                                      color: Colors.white),
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
                             ],

@@ -4,12 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SearchViewState createState() => _SearchViewState();
 }
 
@@ -38,7 +38,7 @@ class _SearchViewState extends State<SearchView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black,
+        color: Theme.of(context).colorScheme.primary,
         child: Column(
           children: [
             Container(
@@ -48,7 +48,7 @@ class _SearchViewState extends State<SearchView> {
                 right: 16.0,
                 bottom: 16.0,
               ),
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.primary,
               child: Row(
                 children: [
                   Expanded(
@@ -60,9 +60,9 @@ class _SearchViewState extends State<SearchView> {
                             0.10, // Ajusta el ancho según tus necesidades
                         child: Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.search,
-                              color: Colors.white,
+                              color: Theme.of(context).iconTheme.color,
                             ),
                             const SizedBox(
                                 width:
@@ -71,21 +71,21 @@ class _SearchViewState extends State<SearchView> {
                               child: TypeAheadField(
                                 textFieldConfiguration: TextFieldConfiguration(
                                   controller: _searchController,
-                                  style: const TextStyle(color: Colors.white),
+                                  style: Theme.of(context).textTheme.bodySmall,
                                   decoration: InputDecoration(
                                     hintText: 'search user'.tr(),
-                                    hintStyle: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontFamily: 'poppins',
-                                            fontWeight: FontWeight.w400),
-                                        color: Colors.white),
+                                    hintStyle:
+                                        Theme.of(context).textTheme.bodySmall,
                                     filled: true,
-                                    fillColor: Colors.black,
+                                    fillColor:
+                                        Theme.of(context).colorScheme.shadow,
                                     border: InputBorder.none,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
-                                      borderSide: const BorderSide(
-                                        color: Colors.white,
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                       ),
                                     ),
                                   ),
@@ -97,14 +97,10 @@ class _SearchViewState extends State<SearchView> {
                                 },
                                 noItemsFoundBuilder: (context) {
                                   return ListTile(
-                                      title: Text(
-                                    'search.em'.tr(),
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                            fontFamily: 'poppins',
-                                            fontWeight: FontWeight.w400),
-                                        color: Colors.white),
-                                  ));
+                                      title: Text('search.em'.tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge));
                                 },
                                 onSuggestionSelected: (suggestion) {
                                   showDialog(
@@ -113,30 +109,23 @@ class _SearchViewState extends State<SearchView> {
                                       return AlertDialog(
                                         title: Text(
                                           'send.bu'.tr(),
-                                          style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                                  fontFamily: 'poppins',
-                                                  fontWeight: FontWeight.w400),
-                                              color: Colors.white),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
                                         ),
                                         content: Text(
                                           '¿Quieres enviar una invitación a $suggestion?',
-                                          style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                                  fontFamily: 'poppins',
-                                                  fontWeight: FontWeight.w400),
-                                              color: Colors.white),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
                                         ),
                                         actions: <Widget>[
                                           TextButton(
                                             child: Text(
                                               'cancel.bu'.tr(),
-                                              style: GoogleFonts.poppins(
-                                                  textStyle: const TextStyle(
-                                                      fontFamily: 'poppins',
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                  color: Colors.white),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge,
                                             ),
                                             onPressed: () {
                                               Navigator.of(context).pop();
@@ -145,12 +134,9 @@ class _SearchViewState extends State<SearchView> {
                                           TextButton(
                                             child: Text(
                                               'accept.bu'.tr(),
-                                              style: GoogleFonts.poppins(
-                                                  textStyle: const TextStyle(
-                                                      fontFamily: 'poppins',
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                  color: Colors.white),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge,
                                             ),
                                             onPressed: () {
                                               Navigator.of(context).pop();
@@ -177,10 +163,7 @@ class _SearchViewState extends State<SearchView> {
             Center(
                 child: Text(
               'team member'.tr(),
-              style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(
-                      fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                  color: Colors.white),
+              style: Theme.of(context).textTheme.bodyLarge,
             )),
             StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
@@ -196,10 +179,7 @@ class _SearchViewState extends State<SearchView> {
                 if (snapshot.hasError) {
                   return Text(
                     'error.team'.tr(),
-                    style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                            fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                        color: Colors.white),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   );
                 }
 
@@ -208,12 +188,7 @@ class _SearchViewState extends State<SearchView> {
                     color: Colors.black,
                     child: Text(
                       'empty.team'.tr(),
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                            fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                        color: Colors.white,
-                        backgroundColor: Colors.black,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   );
                 }
@@ -225,19 +200,18 @@ class _SearchViewState extends State<SearchView> {
                     .toList();
 
                 return Container(
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.primary,
                   child: Column(
                     children: friendUsernames.map((username) {
                       return Row(
                         children: [
                           Expanded(
                             child: Container(
-                              color: Colors.black,
+                              color: Theme.of(context).colorScheme.primary,
                               padding: const EdgeInsets.only(left: 20.0),
                               child: Text(
                                 username,
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18.0, color: Colors.white),
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ),
                           ),
@@ -249,19 +223,13 @@ class _SearchViewState extends State<SearchView> {
                                   return AlertDialog(
                                     title: Text(
                                       'delete'.tr(),
-                                      style: GoogleFonts.poppins(
-                                          textStyle: const TextStyle(
-                                              fontFamily: 'poppins',
-                                              fontWeight: FontWeight.w400),
-                                          color: Colors.white),
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
                                     ),
                                     content: Text(
                                       '¿Estás seguro de que deseas eliminar a $username de tus amigos?',
-                                      style: GoogleFonts.poppins(
-                                          textStyle: const TextStyle(
-                                              fontFamily: 'poppins',
-                                              fontWeight: FontWeight.w400),
-                                          color: Colors.white),
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
                                     ),
                                     actions: [
                                       TextButton(
@@ -270,11 +238,9 @@ class _SearchViewState extends State<SearchView> {
                                         },
                                         child: Text(
                                           'cancel.bu'.tr(),
-                                          style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                                  fontFamily: 'poppins',
-                                                  fontWeight: FontWeight.w400),
-                                              color: Colors.white),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
                                         ),
                                       ),
                                       TextButton(
@@ -284,11 +250,9 @@ class _SearchViewState extends State<SearchView> {
                                         },
                                         child: Text(
                                           'accept.bu'.tr(),
-                                          style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                                  fontFamily: 'poppins',
-                                                  fontWeight: FontWeight.w400),
-                                              color: Colors.white),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
                                         ),
                                       ),
                                     ],
@@ -298,11 +262,7 @@ class _SearchViewState extends State<SearchView> {
                             },
                             child: Text(
                               'delete'.tr(),
-                              style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                      fontFamily: 'poppins',
-                                      fontWeight: FontWeight.w400),
-                                  color: Colors.white),
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                           ),
                         ],
