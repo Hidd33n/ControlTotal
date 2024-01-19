@@ -4,7 +4,6 @@ import 'package:calcu/assets/widgets/slogananimation.dart';
 import 'package:calcu/pages/authsystem/login_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -46,7 +45,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: SafeArea(
             child: Padding(
@@ -56,18 +54,16 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //logo
-                const Icon(
+                Icon(
                   Icons.library_books_rounded,
                   size: 100,
-                  color: Colors.teal,
+                  color: Theme.of(context).iconTheme.color,
                 ),
                 const SizedBox(height: 20),
 
                 //Primera frase
                 Text('apptitle'.tr(),
-                    style: GoogleFonts.poppins(
-                        fontSize: 30,
-                        textStyle: const TextStyle(color: Colors.white))),
+                    style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(
                   height: 10,
                 ),
@@ -111,13 +107,11 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     GestureDetector(
                       onTap: widget.showRegisterPage,
-                      child: Text('register?'.tr(),
-                          style: GoogleFonts.poppins(
-                              textStyle: const TextStyle(
-                                  fontFamily: 'poppins',
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white))),
-                    ),
+                      child: Text(
+                        'register?'.tr(),
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    )
                   ],
                 )
               ],

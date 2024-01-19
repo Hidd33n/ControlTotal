@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -144,11 +143,12 @@ class _CalculateDialogState extends State<CalculateDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor:
-          Colors.transparent, // Hace el fondo del AlertDialog transparente
+      backgroundColor: Theme.of(context)
+          .colorScheme
+          .shadow, // Hace el fondo del AlertDialog transparente
       contentPadding: EdgeInsets.zero,
       content: Container(
-        color: Colors.black,
+        color: Theme.of(context).colorScheme.primary,
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.9,
           child: Column(
@@ -159,14 +159,11 @@ class _CalculateDialogState extends State<CalculateDialog> {
                 children: [
                   Text(
                     "m.team".tr(),
-                    style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                            fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                        color: Colors.white),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   Switch(
-                    inactiveThumbColor: Colors.white,
-                    activeColor: Colors.teal,
+                    inactiveThumbColor: Colors.red,
+                    activeColor: Colors.green,
                     value: _saveToDifferentLocation,
                     onChanged: (bool value) {
                       setState(() {
@@ -177,18 +174,12 @@ class _CalculateDialogState extends State<CalculateDialog> {
                 ],
               ),
               TextField(
-                style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                    color: Colors.white),
+                style: Theme.of(context).textTheme.bodyLarge,
                 controller: widget.controller,
                 decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     hintText: 'cv'.tr(),
-                    hintStyle: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                            fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                        color: Colors.white)),
+                    hintStyle: Theme.of(context).textTheme.bodyLarge),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: <TextInputFormatter>[
@@ -197,12 +188,9 @@ class _CalculateDialogState extends State<CalculateDialog> {
               ),
               const SizedBox(height: 20),
               DropdownButtonFormField(
-                style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                    color: Colors.white),
-                focusColor: Colors.white,
-                dropdownColor: Colors.black,
+                style: Theme.of(context).textTheme.bodyLarge,
+                focusColor: Theme.of(context).colorScheme.onPrimary,
+                dropdownColor: Theme.of(context).colorScheme.primary,
                 value: dropdownValue,
                 onChanged: (String? newValue) {
                   setState(() {
@@ -219,10 +207,7 @@ class _CalculateDialogState extends State<CalculateDialog> {
                 decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: 'pm'.tr(),
-                    labelStyle: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                            fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                        color: Colors.white)),
+                    labelStyle: Theme.of(context).textTheme.bodyLarge),
               ),
               const SizedBox(height: 20),
               Row(
@@ -231,17 +216,13 @@ class _CalculateDialogState extends State<CalculateDialog> {
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
-                        onPrimary: Colors.white,
+                        foregroundColor: Theme.of(context).colorScheme.primary,
+                        backgroundColor: Theme.of(context).colorScheme.shadow,
                       ),
                       onPressed: calculateAndSave,
                       child: Text(
                         "calculate".tr(),
-                        style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                                fontFamily: 'poppins',
-                                fontWeight: FontWeight.w400),
-                            color: Colors.white),
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
                   ),
@@ -249,19 +230,16 @@ class _CalculateDialogState extends State<CalculateDialog> {
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.black,
-                      ),
+                          foregroundColor:
+                              Theme.of(context).colorScheme.primary,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.shadow),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                       child: Text(
                         "cancel.bu".tr(),
-                        style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                                fontFamily: 'poppins',
-                                fontWeight: FontWeight.w400),
-                            color: Colors.white),
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
                   ),

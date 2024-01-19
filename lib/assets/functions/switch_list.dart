@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
 class SwitchList extends StatelessWidget {
@@ -34,10 +33,7 @@ class SwitchList extends StatelessWidget {
           return Center(
             child: Text(
               'error.t'.tr(),
-              style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(
-                      fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                  color: Colors.white),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           );
         }
@@ -46,10 +42,7 @@ class SwitchList extends StatelessWidget {
           return Center(
             child: Text(
               'empty.t'.tr(),
-              style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(
-                      fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                  color: Colors.white),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           );
         }
@@ -81,17 +74,11 @@ class SwitchList extends StatelessWidget {
               child: ListTile(
                 title: Text(
                   'Monto: ${data['monto_final']}',
-                  style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                      color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 subtitle: Text(
                   'Impuesto: ${data['impuesto_resta']} - Fecha: $fechaFormateada',
-                  style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                      color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 trailing: const Icon(Icons.delete),
               ),
@@ -125,10 +112,7 @@ class SwitchList extends StatelessWidget {
           return Center(
               child: Text(
             'error.t'.tr(),
-            style: GoogleFonts.poppins(
-                textStyle: const TextStyle(
-                    fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                color: Colors.white),
+            style: Theme.of(context).textTheme.bodyLarge,
           ));
         }
 
@@ -136,10 +120,7 @@ class SwitchList extends StatelessWidget {
           return Center(
               child: Text(
             'empty.t'.tr(),
-            style: GoogleFonts.poppins(
-                textStyle: const TextStyle(
-                    fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                color: Colors.white),
+            style: Theme.of(context).textTheme.bodyLarge,
           ));
         }
 
@@ -169,17 +150,11 @@ class SwitchList extends StatelessWidget {
               child: ListTile(
                 title: Text(
                   'Monto: ${data['monto_final']}',
-                  style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                      color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 subtitle: Text(
                   'Impuesto: ${data['impuesto_resta']} - Fecha: $fechaFormateada',
-                  style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                      color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 trailing: const Icon(Icons.delete),
               ),

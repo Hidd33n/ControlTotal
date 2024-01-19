@@ -42,5 +42,7 @@
     "custom": "Personalizado",
     "m.team": "Modo Equipo:",
     "cv": "Ingresa monto",
-    "pm": "Tipo de pago"
+    "pm": "Tipo de pago",
+    "lighttheme": "Tema Claro",
+    "darktheme": "Tema Oscuro"
 }

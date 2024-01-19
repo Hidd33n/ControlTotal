@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -19,7 +18,7 @@ class CustomButton extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: Colors.teal,
+            color: Theme.of(context).colorScheme.secondary,
             borderRadius: BorderRadius.circular(50),
             border: Border.all(color: Colors.teal),
           ),
@@ -27,14 +26,7 @@ class CustomButton extends StatelessWidget {
           child: Center(
             child: Text(
               buttonText,
-              style: GoogleFonts.poppins(
-                textStyle: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
-              ),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
         ),

@@ -1,17 +1,20 @@
 import 'package:calcu/assets/functions/settings_service.dart';
+import 'package:calcu/assets/ui/themes/theme_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:google_fonts/google_fonts.dart';
+class SettingsView extends StatefulWidget {
+  const SettingsView({Key? key}) : super(key: key);
 
-class SettingsView extends StatelessWidget {
+  @override
+  // ignore: library_private_types_in_public_api
+  _SettingsViewState createState() => _SettingsViewState();
+}
+
+class _SettingsViewState extends State<SettingsView> {
   final SettingsServices settingsService = SettingsServices();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  SettingsView({super.key});
-
-  // Esta función maneja el cierre de sesión
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class SettingsView extends StatelessWidget {
     String email = currentUser?.email ?? 'N/A';
     return Scaffold(
       body: Container(
-        color: Colors.black,
+        color: Theme.of(context).colorScheme.primary,
         child: ListView(children: [
           Center(
             child: Padding(
@@ -29,29 +32,15 @@ class SettingsView extends StatelessWidget {
                 children: [
                   Text(
                     displayName,
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 18.0, // Ajusta el tamaño según tu preferencia
-                      ),
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   Text(
                     email,
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14.0, // Ajusta el tamaño según tu preferencia
-                      ),
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(
-                      height:
-                          8.0), // Ajusta el espacio entre los textos y la lista
+                    height: 8.0,
+                  ),
                   const Divider(
                     color: Colors.white,
                     thickness: 2.0,
@@ -67,59 +56,50 @@ class SettingsView extends StatelessWidget {
                 leading: const Icon(Icons.attach_money),
                 title: Text(
                   'fix taxs'.tr(),
-                  style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                      color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 onTap: () => settingsService.taxessettings(context),
               ),
-              context.locale.languageCode == 'en'
-                  ? ListTile(
-                      leading: const Icon(Icons.abc_sharp),
-                      title: Text(
-                        'es'.tr(),
-                        style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                                fontFamily: 'poppins',
-                                fontWeight: FontWeight.w400),
-                            color: Colors.white),
-                      ),
-                      onTap: () async =>
-                          await (context.setLocale(const Locale('es', 'ES'))),
-                    )
-                  : ListTile(
-                      leading: const Icon(Icons.abc_sharp),
-                      title: Text(
-                        'en'.tr(),
-                        style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                                fontFamily: 'poppins',
-                                fontWeight: FontWeight.w400),
-                            color: Colors.white),
-                      ),
-                      onTap: () async =>
-                          await (context.setLocale(const Locale('en', 'US'))),
-                    ),
               ListTile(
-                leading: const Icon(Icons.dangerous),
+                leading: const Icon(Icons.abc_sharp),
                 title: Text(
-                  'cooming soon'.tr(),
-                  style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                      color: Colors.white),
+                  context.locale.languageCode == 'en' ? 'es'.tr() : 'en'.tr(),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                onTap: () {},
+                onTap: () async => await (context.setLocale(
+                  context.locale.languageCode == 'en'
+                      ? const Locale('es', 'ES')
+                      : const Locale('en', 'US'),
+                )),
               ),
+              ListTile(
+                leading: Icon(
+                  ThemeManager.currentThemeMode == ThemeMode.light
+                      ? Icons.light_mode
+                      : Icons.dark_mode,
+                ),
+                title: Text(
+                  ThemeManager.currentThemeMode == ThemeMode.light
+                      ? 'lighttheme'.tr()
+                      : 'darktheme'.tr(),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                onTap: () {
+                  ThemeMode currentTheme = ThemeManager.currentThemeMode;
+                  ThemeManager.setTheme(
+                    currentTheme == ThemeMode.light
+                        ? ThemeMode.dark
+                        : ThemeMode.light,
+                  );
+                  setState(() {});
+                },
+              ),
+
               ListTile(
                 leading: const Icon(Icons.exit_to_app),
                 title: Text(
                   'logout'.tr(),
-                  style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                      color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 onTap: () => settingsService.confirmSignOut(context),
               ),
