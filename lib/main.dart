@@ -1,10 +1,11 @@
 import 'package:calcu/assets/ui/themes/theme_manager.dart';
 import 'package:calcu/pages/authsystem/auth.dart';
 import 'package:calcu/pages/home_view.dart';
+import 'package:calcu/pages/landing_view.dart';
 import 'package:calcu/pages/noti_view.dart';
 import 'package:calcu/pages/search_view.dart';
 import 'package:calcu/pages/settings_view.dart';
-import 'package:calcu/assets/ui/nav.dart';
+import 'package:calcu/assets/widgets/nav.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
@@ -19,6 +20,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await ThemeManager.loadTheme();
 
   bool isAuthenticated = false;
   firebase_auth.User? user = firebase_auth.FirebaseAuth.instance.currentUser;
@@ -49,6 +51,12 @@ class MyApp extends StatelessWidget {
       initialData: ThemeManager.currentThemeMode,
       builder: (context, snapshot) {
         ThemeMode selectedTheme = snapshot.data ?? ThemeMode.system;
+
+        // Si no hay un tema guardado, selecciona el tema claro como predeterminado
+        if (selectedTheme == ThemeMode.system) {
+          selectedTheme = ThemeMode.light;
+        }
+
         print('Selected theme: $selectedTheme');
         return MaterialApp(
           key: key,
@@ -66,12 +74,13 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) =>
                 isAuthenticated ? const NavigationScreen() : const AuthPage(),
+            '/landing': (context) => LandingPage(),
             '/home': (context) => const HomePage(),
             '/noti': (context) => const NotifyView(),
             '/search': (context) => const SearchView(),
-            '/settings': (context) => SettingsView(),
+            '/settings': (context) => const SettingsView(),
           },
-          initialRoute: '/',
+          initialRoute: '/landing',
           builder: (context, child) {
             FirebaseMessaging.onMessage.listen((RemoteMessage message) {});
 

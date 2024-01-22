@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -139,11 +140,8 @@ class SettingsServices {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'Ajustar Tasas',
-            style: GoogleFonts.poppins(
-                textStyle: const TextStyle(
-                    fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                color: Colors.white),
+            'adjust'.tr(),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
           content: SingleChildScrollView(
             child: Column(
@@ -152,7 +150,7 @@ class SettingsServices {
                   TextField(
                     controller: entry.value,
                     decoration:
-                        InputDecoration(labelText: 'Tasa ${entry.key} (%)'),
+                        InputDecoration(labelText: 'rate ${entry.key}'.tr()),
                     keyboardType:
                         TextInputType.number, // Acepta sólo números enteros
                   ),
@@ -163,20 +161,14 @@ class SettingsServices {
             TextButton(
               child: Text(
                 'Cancelar',
-                style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                    color: Colors.white),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               onPressed: () => Navigator.pop(context),
             ),
             TextButton(
               child: Text(
                 'Guardar',
-                style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                        fontFamily: 'poppins', fontWeight: FontWeight.w400),
-                    color: Colors.white),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               onPressed: () async {
                 bool allValid = true;

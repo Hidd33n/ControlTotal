@@ -1,4 +1,4 @@
-import 'package:calcu/assets/ui/nav.dart';
+import 'package:calcu/assets/widgets/nav.dart';
 import 'package:calcu/pages/authsystem/error_cases.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
