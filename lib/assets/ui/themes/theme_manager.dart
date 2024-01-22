@@ -6,7 +6,7 @@ import 'light_theme.dart' as light;
 import 'dark_theme.dart' as dark;
 
 class ThemeManager {
-  static final String _themePreferenceKey = 'theme_preference';
+  static const String _themePreferenceKey = 'theme_preference';
   static ThemeMode _currentTheme = ThemeMode.light;
   static final StreamController<ThemeMode> _themeController =
       StreamController<ThemeMode>.broadcast();
@@ -38,5 +38,25 @@ class ThemeManager {
             : ThemeMode.system;
     print('Current theme: $selectedTheme');
     return selectedTheme;
+  }
+
+  static Future<void> saveTheme() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(_themePreferenceKey, _currentTheme.toString());
+    print('Theme saved: $_currentTheme');
+  }
+
+  static Future<void> loadTheme() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String themeString = prefs.getString(_themePreferenceKey) ?? 'light';
+
+    _currentTheme = themeString == 'dark'
+        ? ThemeMode.dark
+        : themeString == 'light'
+            ? ThemeMode.light
+            : ThemeMode.system;
+
+    _themeController.add(_currentTheme);
+    print('Theme loaded: $_currentTheme');
   }
 }

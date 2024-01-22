@@ -44,5 +44,18 @@
     "cv": "Ingresa monto",
     "pm": "Tipo de pago",
     "lighttheme": "Tema Claro",
-    "darktheme": "Tema Oscuro"
+    "darktheme": "Tema Oscuro",
+    "slidersub1": "Selecciona el tema que mas se adapte a vos.",
+    "slidertext1": "Cambiar idioma",
+    "skip": "Saltar",
+    "start": "Comenzar",
+    "adjust": "Ajusta tus tasas.",
+    "slidersub2": "Totalmente personalizable.",
+    "rate": "Tasa",
+    "rate Personalizado": "Tasa personalizada.",
+    "rate Efectivo": "Tasa Efectivo",
+    "rate 6 cuotas": "Tasa a 6 pagos",
+    "rate 3 cuotas": "Tasa a 3 pagos",
+    "rate Transferencia": "Transferencia",
+    "notify": "Notificaciones"
 }

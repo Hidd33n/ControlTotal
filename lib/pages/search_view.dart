@@ -1,8 +1,9 @@
 import 'package:calcu/assets/functions/search_services.dart';
+import 'package:calcu/assets/widgets/search_field.dart';
+import 'package:calcu/assets/utils/invitation_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SearchView extends StatefulWidget {
@@ -37,129 +38,34 @@ class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: SearchField(
+            controller: _searchController,
+            onSuggestionSelected: (suggestion) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return InvitationDialog(
+                    suggestion: suggestion,
+                    onCancel: () {
+                      Navigator.of(context).pop();
+                    },
+                    onAccept: () {
+                      Navigator.of(context).pop();
+                      _searchService.sendInvitation(suggestion);
+                    },
+                  );
+                },
+              );
+            },
+            suggestionsCallback: _searchService.fetchUserSuggestions,
+          ),
+          automaticallyImplyLeading: false),
       body: Container(
         color: Theme.of(context).colorScheme.primary,
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.only(
-                top: 40.0,
-                left: 16.0,
-                right: 16.0,
-                bottom: 16.0,
-              ),
-              color: Theme.of(context).colorScheme.primary,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        width: MediaQuery.of(context).size.width *
-                            0.10, // Ajusta el ancho según tus necesidades
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.search,
-                              color: Theme.of(context).iconTheme.color,
-                            ),
-                            const SizedBox(
-                                width:
-                                    5), // Espacio entre el icono y el campo de texto
-                            Expanded(
-                              child: TypeAheadField(
-                                textFieldConfiguration: TextFieldConfiguration(
-                                  controller: _searchController,
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                  decoration: InputDecoration(
-                                    hintText: 'search user'.tr(),
-                                    hintStyle:
-                                        Theme.of(context).textTheme.bodySmall,
-                                    filled: true,
-                                    fillColor:
-                                        Theme.of(context).colorScheme.shadow,
-                                    border: InputBorder.none,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                suggestionsCallback:
-                                    _searchService.fetchUserSuggestions,
-                                itemBuilder: (context, suggestion) {
-                                  return ListTile(title: Text(suggestion));
-                                },
-                                noItemsFoundBuilder: (context) {
-                                  return ListTile(
-                                      title: Text('search.em'.tr(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge));
-                                },
-                                onSuggestionSelected: (suggestion) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text(
-                                          'send.bu'.tr(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
-                                        ),
-                                        content: Text(
-                                          '¿Quieres enviar una invitación a $suggestion?',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
-                                        ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: Text(
-                                              'cancel.bu'.tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge,
-                                            ),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                          TextButton(
-                                            child: Text(
-                                              'accept.bu'.tr(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge,
-                                            ),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              _searchService
-                                                  .sendInvitation(suggestion);
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 100),
+            const SizedBox(height: 60),
             Center(
                 child: Text(
               'team member'.tr(),

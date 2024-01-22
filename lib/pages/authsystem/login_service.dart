@@ -1,4 +1,4 @@
-import 'package:calcu/assets/ui/nav.dart';
+import 'package:calcu/assets/widgets/nav.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

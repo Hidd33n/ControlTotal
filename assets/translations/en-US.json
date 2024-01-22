@@ -44,5 +44,18 @@
     "cv": "Enter amount",
     "pm": "Payments Methods",
     "lighttheme": "Light Theme",
-    "darktheme": "Dark Theme"
+    "darktheme": "Dark Theme",
+    "slidersub1": "Select the theme that best suits you.",
+    "slidertext1": "Change language",
+    "skip": "Skip",
+    "start": "Get Started",
+    "adjust": "Adjust your rates.",
+    "slidersub2": "Fully customizable",
+    "rate": "Rate",
+    "rate Personalizado": "Customized rate.",
+    "rate Efectivo": "Cash rate",
+    "rate 6 cuotas": "Rate for 6 payments",
+    "rate 3 cuotas": "Rate for 3 payments",
+    "rate Transferencia": "Transfer rate",
+    "notify": "Notifications"
 }
