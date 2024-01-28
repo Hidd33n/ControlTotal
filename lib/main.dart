@@ -1,19 +1,18 @@
-import 'package:calcu/assets/ui/themes/theme_manager.dart';
-import 'package:calcu/pages/authsystem/auth.dart';
-import 'package:calcu/pages/home_view.dart';
-import 'package:calcu/pages/landing_view.dart';
-import 'package:calcu/pages/noti_view.dart';
-import 'package:calcu/pages/search_view.dart';
-import 'package:calcu/pages/settings_view.dart';
-import 'package:calcu/assets/widgets/nav.dart';
+import 'package:calcu/core/ui/themes/theme_manager.dart';
+import 'package:calcu/presentation/login/functions/auth.dart';
+import 'package:calcu/presentation/home/screens/home_screen.dart';
+import 'package:calcu/presentation/landing/screens/landing_view.dart';
+import 'package:calcu/presentation/notification/screens/noti_view.dart';
+import 'package:calcu/presentation/search/screens/search_view.dart';
+import 'package:calcu/navigation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
-import 'package:calcu/assets/ui/themes/light_theme.dart' as light;
-import 'package:calcu/assets/ui/themes/dark_theme.dart' as dark;
+import 'package:calcu/core/ui/themes/light_theme.dart' as light;
+import 'package:calcu/core/ui/themes/dark_theme.dart' as dark;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -78,7 +77,6 @@ class MyApp extends StatelessWidget {
             '/home': (context) => const HomePage(),
             '/noti': (context) => const NotifyView(),
             '/search': (context) => const SearchView(),
-            '/settings': (context) => const SettingsView(),
           },
           initialRoute: '/landing',
           builder: (context, child) {
